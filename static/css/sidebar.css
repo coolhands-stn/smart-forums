@@ -1,0 +1,69 @@
+#side-bar {
+    width: 250px;
+    height: calc(100vh - 90px);
+
+    border-right: 1px solid #e0e0e0;
+
+    display: flex;
+    flex-flow: column nowrap;
+
+    padding: 20px 0 20px 10px;
+    position: relative;
+
+    transition: all 0.4s ease;
+}
+
+.wrap,
+.registered-courses {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    margin-bottom: 15px;
+
+    height: 50px;
+    width: 100%;
+}
+
+
+.course {
+    height: 40px;
+    width: 100%;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 10px;
+
+    cursor: pointer;
+
+    transition: all 0.4s ease;
+}
+
+.course:hover {
+    background-color: #FAF9F6; /* off white */
+}
+
+.course-meta {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.course-name,
+.course-code,
+.head > p {
+    font-family: "Mulish", sans-serif;
+    font-size: 0.7rem;
+    font-weight: normal;
+}
+
+.course-code {
+    color: #808080;
+    font-size: 0.6rem;
+}

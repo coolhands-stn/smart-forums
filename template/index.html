@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/thread.css">
+    <link rel="stylesheet" href="../static/css/sidebar.css">
+
+    <script src="https://kit.fontawesome.com/94ac63ee63.js" crossorigin="anonymous"></script>
+
+    <!-- "Mulish", sans-serif -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kolker+Brush&family=Mulish:wght@700&family=Roboto+Slab:wght@700&display=swap');
+    </style>
+
+    <!-- "Marhey", cursive; -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kolker+Brush&family=Marhey:wght@700&family=Mulish:wght@700&family=Roboto+Slab:wght@700&display=swap');
+    </style>
+
+    <!-- font-family: 'Poppins', sans-serif; -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+    </style>
+    
+    <title>Smart-Forums</title>
+</head>
+<body>
+    <section class="fr-nav">
+        <div class="fr-title">
+            <p> Discussion Forums / Chemistry </p>
+            <div class="back-arrow">
+                <i class="fa-solid fa-arrow-left-long" style="color: #0058FF;"></i>
+                <p>dashboard</p>
+            </div>
+        </div>
+
+        <div class="profile">
+            <img class="avatar" alt="user-avatar" src="../static/assets/sganyani.png" />
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+    </section>
+
+    <section class="mid-section">
+        <section id="side-bar">
+            <div class="wrap">
+                <div class="head">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <p>Registered Courses</p>
+                </div>
+                <div class="registered-courses">
+                    <!-- First Course -->
+                    <div class="course">
+                        <img class="avatar" src="../static/assets/biology.jpg" alt="course cover photo" />
+                        <div class="course-meta">
+                            <p class="course-name">Introduction to Biology</p>
+                            <p class="course-code">BIO101</p>
+                        </div>
+                    </div>
+                    <!-- Second Course -->
+                    <div class="course">
+                        <img class="avatar" src="../static/assets/computers.jfif" alt="course cover photo" />
+                        <div class="course-meta">
+                            <p class="course-name">Principles of Computer Science</p>
+                            <p class="course-code">CSC201</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="content">
+            <!-- Controls -->
+            <div class="controls">
+                <div class="fr-search">
+                    <div class="search-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <!-- Filter threads -->
+                    <input class="input" name="search" type="text" placeholder="Search..." />
+                </div>
+                <!-- Filter saved posts -->
+                <div class="controls-btn">
+                    <i class="fa-regular fa-bookmark"></i>
+                </div>
+                <!-- Add new posts-->
+                <div class="controls-btn">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+            </div>
+
+             <!-- Threads -->
+            {% if threads.any() %}
+                {% for thread in threads %}
+                    <div class="thread">
+                        <main class="question">
+                            <!-- Question -->
+                            <!-- Title -->
+                            <div class="title">
+                                <!-- Profile -->
+                                <div class="profile-container">
+                                    <div class="student-profile">
+                                        <img src="../static/assets/sganyani.png" class="avatar" alt="student avatar"/>
+                                        <p>{{  thread["mainQuestion"]["profile"].get("username") }}</p>
+                                    </div>
+                                </div>
+                                <!-- Reference -->
+                                <div class="references-container">
+                                    <p class="thread-references session-year-paper">{{ thread["mainQuestion"]["references"].get("session") }} {{ thread["mainQuestion"]["references"].get("year") }} {{ thread["mainQuestion"]["references"].get("paper") }}</p>
+                                    <p class="thread-references syllabus">{{ thread["mainQuestion"]["references"].get("syllabus") }}</p>
+                                    <p class="thread-references topic">{{ thread["mainQuestion"]["references"].get("topic") }}</p>
+                                </div>
+                                <!-- Controls -->
+                                <div class="controls-container">
+                                    <div class="title-attachments-container">
+                                        <i class="fa-solid fa-paperclip"></i>
+                                    </div>
+                                    <div class="thread-title-controls-container">
+                                        <i class="fa-regular fa-bell"></i>
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                        <i class="fa-regular fa-bookmark"></i>
+                                    </div>
+                                    <p class="thread-title-controls-date" id="thread-title-question-date">2w</p>
+                                </div>
+                            </div>
+                            <!-- Description -->
+                            <div class="thread-question-inner-container">
+                                <div class="question-title-container">
+                                    <p class="question-title">Q: </p>
+                                </div>
+                                <div class="question-description-container">
+                                    <p class="question-description">
+                                        {{  thread["mainQuestion"]["question"].get("description") }}
+                                    </p>
+                                </div>
+                            </div>
+        
+                            <!-- Question -->
+                            <p class="reply">reply</p>
+                            <p class="answers">view answers</p>
+                        </main>
+                        <main class="responses">
+                            <!-- Response number 1 -->
+                            {% if thread.get("responses") %}
+                                {% for response in thread.get("responses") %}
+                                    <div class="response-container">
+                                        <!-- Title -->
+                                        <div class="response-title-container">
+                                            <!-- Profile  -->
+                                            <div class="profile-container">
+                                                <div class="student-profile">
+                                                    <img src="../static/assets/sganyani.png" class="avatar" alt="student avatar" />
+                                                    <p class="thread-forum-student-username">
+                                                        {{ response.get("profile").get("username") }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Description } -->
+                                        <div class="thread-response-container">
+                                            <p class="response-description">
+                                                {{ response.get("answer").get("description") }}
+                                            </p>
+                                        </div>
+
+                                        
+                
+                                        <!-- Nested Comments or Answers * -->
+
+                                        {% if response.get("responses") %}
+                                            {% for response in response.get("responses") %}
+                                                <div class="response-container">
+                                                    <!-- Title -->
+                                                    <div class="response-title-container">
+                                                        <!-- Profile  -->
+                                                        <div class="profile-container">
+                                                            <div class="student-profile">
+                                                                <img src="../static/assets/sganyani.png" class="avatar" alt="student avatar" />
+                                                                <p class="thread-forum-student-username">
+                                                                    {{ response.get("profile").get("username") }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Description } -->
+                                                    <div class="thread-response-container">
+                                                        <p class="response-description">
+                                                            {{ response.get("answer").get("description") }}
+                                                        </p>
+                                                    </div>
+                                                    <!-- Nested Comments or Answers * -->
+                                                    <!-- { output } -->
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </main>
+                    </div>
+            {% endfor %}
+        {% endif %}
+        </section>
+    </section>
+</body>
+</html>
