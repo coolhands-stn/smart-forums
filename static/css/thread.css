@@ -1,3 +1,16 @@
+.threads {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 15px;
+
+    overflow-y: scroll;
+
+    height: 100%;
+    width: 100%;
+
+    box-sizing: border-box;
+    padding-right: 10px;
+}
 
 .thread {
     border: 1px solid #e0e0e0;
@@ -139,7 +152,7 @@
     font-size: 0.7rem;
     font-weight: bold;
     
-    color: #131523 ;
+    color: #656f79 ;
 }
 
 .answers,
@@ -234,9 +247,9 @@
     line-height: 1.7em;
 
     font-family: "Mulish", sans-serif;
-    font-size: 00.7rem;
+    font-size: 0.7rem;
     font-weight: bold;
 
     cursor: pointer;
-    color: #131523 ;
+    color: #656f79;
 }

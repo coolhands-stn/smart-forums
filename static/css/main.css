@@ -115,9 +115,45 @@ body {
 .controls { 
     display: flex;
     flex-flow: row nowrap;
+    align-items: center;
     gap: 10px;
 
+    position: relative;
+
+    height: 150px;
+
     margin: 10px 0 10px 0;
+}
+
+#placeholder-description {
+    font-family: "Mulish", sans-serif;
+    font-weight: bold;
+    font-size: 0.7rem;
+
+    color: #e0e0e0;
+
+    position: absolute;
+    top: 15px;
+}
+
+.filter {
+    position: absolute;
+    bottom: 2px;
+
+    height: 10px;
+    border-radius: 10px;
+    background-color: #e0e0e0;
+
+    font-family: "Mulish", sans-serif;
+    font-weight: bold;
+    font-size: 0.7rem;
+
+    color: #656f79;
+
+    display: flex;
+    align-items: center;
+
+    padding: 3px 5px;
 }
 
 .controls-btn {
@@ -167,6 +203,8 @@ body {
     cursor: pointer;
 
     border-radius: 5px 0 0 5px;
+    border: none;
+    outline: none;
 }
 
 .input { 
@@ -208,7 +246,6 @@ body {
     position: relative;
 
     overflow: hidden;
-    overflow-y: scroll;
 
     width: 75%;
     height: 100vh;

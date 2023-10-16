@@ -48,7 +48,7 @@
         <section id="side-bar">
             <div class="wrap">
                 <div class="head">
-                    <i class="fa-solid fa-user-graduate"></i>
+                    <i class="fa-regular fa-bars"></i>
                     <p>Registered Courses</p>
                 </div>
                 <div class="registered-courses">
@@ -70,17 +70,46 @@
                     </div>
                 </div>
             </div>
+            <!-- Filters -->
+            <div class="filters">
+                <div class="head">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <p>Filters</p>
+                </div>
+                <section class="filters-list">
+                    <div class="radio-container" value="description">
+                        <i class="fa-solid fa-pen-nib"></i>
+                        <p>Description</p>
+                    </div>
+                    <div class="radio-container" value="topic">
+                        <i class="fa-solid fa-book"></i>
+                        <p>Topic</p>
+                    </div>
+                    <div class="radio-container" value="time">
+                        <i class="fa-solid fa-timeline"></i>
+                        <p>Session | Year | Paper</p>
+                    </div>
+                    <div class="radio-container" value="username">
+                        <i class="fa-solid fa-user"></i> 
+                        <p>Username</p>
+                    </div>
+                </section>
+            </div>
         </section>
         <section id="content">
             <!-- Controls -->
+            <div>
+            
             <div class="controls">
-                <div class="fr-search">
-                    <div class="search-icon">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </div>
+                <p id="placeholder-description"></p>
+                <form class="fr-search" id="form" action="/" method="POST" enctype="multipart/form-data">
                     <!-- Filter threads -->
-                    <input class="input" name="search" type="text" placeholder="Search..." />
-                </div>
+                    <button type="submit" class="search-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <input class="input" id="filter_input" name="search_value" type="text" placeholder="Search..." />  
+                    <input id="selected_filter_Value" name="selected_filter_Value" type="text" placeholder="Search..." hidden />  
+                </form>
                 <!-- Filter saved posts -->
                 <div class="controls-btn">
                     <i class="fa-regular fa-bookmark"></i>
@@ -89,121 +118,130 @@
                 <div class="controls-btn">
                     <i class="fa-solid fa-plus"></i>
                 </div>
+
+                {%  if filters %}
+                    {% for filter in filters %}
+                        <div class="filter">
+                            {{ filter }}
+                        </div>
+                    {% endfor %}
+                {%  endif %}
             </div>
 
-             <!-- Threads -->
-            {% if threads.any() %}
-                {% for thread in threads %}
-                    <div class="thread">
-                        <main class="question">
-                            <!-- Question -->
-                            <!-- Title -->
-                            <div class="title">
-                                <!-- Profile -->
-                                <div class="profile-container">
-                                    <div class="student-profile">
-                                        <img src="../static/assets/sganyani.png" class="avatar" alt="student avatar"/>
-                                        <p>{{  thread["mainQuestion"]["profile"].get("username") }}</p>
-                                    </div>
-                                </div>
-                                <!-- Reference -->
-                                <div class="references-container">
-                                    <p class="thread-references session-year-paper">{{ thread["mainQuestion"]["references"].get("session") }} {{ thread["mainQuestion"]["references"].get("year") }} {{ thread["mainQuestion"]["references"].get("paper") }}</p>
-                                    <p class="thread-references syllabus">{{ thread["mainQuestion"]["references"].get("syllabus") }}</p>
-                                    <p class="thread-references topic">{{ thread["mainQuestion"]["references"].get("topic") }}</p>
-                                </div>
-                                <!-- Controls -->
-                                <div class="controls-container">
-                                    <div class="title-attachments-container">
-                                        <i class="fa-solid fa-paperclip"></i>
-                                    </div>
-                                    <div class="thread-title-controls-container">
-                                        <i class="fa-regular fa-bell"></i>
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                        <i class="fa-regular fa-bookmark"></i>
-                                    </div>
-                                    <p class="thread-title-controls-date" id="thread-title-question-date">2w</p>
-                                </div>
-                            </div>
-                            <!-- Description -->
-                            <div class="thread-question-inner-container">
-                                <div class="question-title-container">
-                                    <p class="question-title">Q: </p>
-                                </div>
-                                <div class="question-description-container">
-                                    <p class="question-description">
-                                        {{  thread["mainQuestion"]["question"].get("description") }}
-                                    </p>
-                                </div>
-                            </div>
-        
-                            <!-- Question -->
-                            <p class="reply">reply</p>
-                            <p class="answers">view answers</p>
-                        </main>
-                        <main class="responses">
-                            <!-- Response number 1 -->
-                            {% if thread.get("responses") %}
-                                {% for response in thread.get("responses") %}
-                                    <div class="response-container">
-                                        <!-- Title -->
-                                        <div class="response-title-container">
-                                            <!-- Profile  -->
-                                            <div class="profile-container">
-                                                <div class="student-profile">
-                                                    <img src="../static/assets/sganyani.png" class="avatar" alt="student avatar" />
-                                                    <p class="thread-forum-student-username">
-                                                        {{ response.get("profile").get("username") }}
-                                                    </p>
-                                                </div>
-                                            </div>
+            <div class="threads">
+                <!-- Threads -->
+                {% if threads.any() %}
+                    {% for thread in threads %}
+                        <div class="thread">
+                            <main class="question">
+                                <!-- Question -->
+                                <!-- Title -->
+                                <div class="title">
+                                    <!-- Profile -->
+                                    <div class="profile-container">
+                                        <div class="student-profile">
+                                            <img src="../static/assets/sganyani.png" class="avatar" alt="student avatar"/>
+                                            <p>{{  thread["mainQuestion"]["profile"].get("username") }}</p>
                                         </div>
-                                        <!-- Description } -->
-                                        <div class="thread-response-container">
-                                            <p class="response-description">
-                                                {{ response.get("answer").get("description") }}
-                                            </p>
+                                    </div>
+                                    <!-- Reference -->
+                                    <div class="references-container">
+                                        <p class="thread-references session-year-paper">{{ thread["mainQuestion"]["references"].get("session") }} {{ thread["mainQuestion"]["references"].get("year") }} {{ thread["mainQuestion"]["references"].get("paper") }}</p>
+                                        <p class="thread-references syllabus">{{ thread["mainQuestion"]["references"].get("syllabus") }}</p>
+                                        <p class="thread-references topic">{{ thread["mainQuestion"]["references"].get("topic") }}</p>
+                                    </div>
+                                    <!-- Controls -->
+                                    <div class="controls-container">
+                                        <div class="title-attachments-container">
+                                            <i class="fa-solid fa-paperclip"></i>
                                         </div>
-
-                                        
-                
-                                        <!-- Nested Comments or Answers * -->
-
-                                        {% if response.get("responses") %}
-                                            {% for response in response.get("responses") %}
-                                                <div class="response-container">
-                                                    <!-- Title -->
-                                                    <div class="response-title-container">
-                                                        <!-- Profile  -->
-                                                        <div class="profile-container">
-                                                            <div class="student-profile">
-                                                                <img src="../static/assets/sganyani.png" class="avatar" alt="student avatar" />
-                                                                <p class="thread-forum-student-username">
-                                                                    {{ response.get("profile").get("username") }}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- Description } -->
-                                                    <div class="thread-response-container">
-                                                        <p class="response-description">
-                                                            {{ response.get("answer").get("description") }}
+                                        <div class="thread-title-controls-container">
+                                            <i class="fa-regular fa-bell"></i>
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                            <i class="fa-regular fa-bookmark"></i>
+                                        </div>
+                                        <p class="thread-title-controls-date" id="thread-title-question-date">2w</p>
+                                    </div>
+                                </div>
+                                <!-- Description -->
+                                <div class="thread-question-inner-container">
+                                    <div class="question-title-container">
+                                        <p class="question-title">Q: </p>
+                                    </div>
+                                    <div class="question-description-container">
+                                        <p class="question-description">
+                                            {{  thread["mainQuestion"]["question"].get("description") }}
+                                        </p>
+                                    </div>
+                                </div>
+            
+                                <!-- Question -->
+                                <p class="reply">reply</p>
+                                <p class="answers">view answers</p>
+                            </main>
+                            <main class="responses">
+                                <!-- Response number 1 -->
+                                {% if thread.get("responses") %}
+                                    {% for response in thread.get("responses") %}
+                                        <div class="response-container">
+                                            <!-- Title -->
+                                            <div class="response-title-container">
+                                                <!-- Profile  -->
+                                                <div class="profile-container">
+                                                    <div class="student-profile">
+                                                        <img src="../static/assets/sganyani.png" class="avatar" alt="student avatar" />
+                                                        <p class="thread-forum-student-username">
+                                                            {{ response.get("profile").get("username") }}
                                                         </p>
                                                     </div>
-                                                    <!-- Nested Comments or Answers * -->
-                                                    <!-- { output } -->
                                                 </div>
-                                            {% endfor %}
-                                        {% endif %}
-                
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                        </main>
-                    </div>
-            {% endfor %}
-        {% endif %}
+                                            </div>
+                                            <!-- Description } -->
+                                            <div class="thread-response-container">
+                                                <p class="response-description">
+                                                    {{ response.get("answer").get("description") }}
+                                                </p>
+                                            </div>
+
+                                            
+                    
+                                            <!-- Nested Comments or Answers * -->
+
+                                            {% if response.get("responses") %}
+                                                {% for response in response.get("responses") %}
+                                                    <div class="response-container">
+                                                        <!-- Title -->
+                                                        <div class="response-title-container">
+                                                            <!-- Profile  -->
+                                                            <div class="profile-container">
+                                                                <div class="student-profile">
+                                                                    <img src="../static/assets/sganyani.png" class="avatar" alt="student avatar" />
+                                                                    <p class="thread-forum-student-username">
+                                                                        {{ response.get("profile").get("username") }}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Description } -->
+                                                        <div class="thread-response-container">
+                                                            <p class="response-description">
+                                                                {{ response.get("answer").get("description") }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                    
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </main>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
         </section>
     </section>
 </body>
+<script src="../static/js/main.js"></script>
 </html>

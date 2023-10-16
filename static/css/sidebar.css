@@ -1,5 +1,5 @@
 #side-bar {
-    width: 250px;
+    width: 320px;
     height: calc(100vh - 90px);
 
     border-right: 1px solid #e0e0e0;
@@ -20,10 +20,16 @@
     gap: 10px;
 }
 
+.wrap {
+    padding-bottom: 50px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
 .head {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 10px;
 
     margin-bottom: 15px;
 
@@ -31,9 +37,8 @@
     width: 100%;
 }
 
-
 .course {
-    height: 40px;
+    height: 53px;
     width: 100%;
 
     display: flex;
@@ -63,7 +68,82 @@
     font-weight: normal;
 }
 
+
+.head > p {
+    color: #656f79;
+}
+
 .course-code {
     color: #808080;
     font-size: 0.6rem;
+}
+
+.filters-list {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 10px;
+}
+
+.radio-container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+
+    height: 40px;
+    width: max-content;
+
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    border: 1px solid transparent;;
+
+    cursor: pointer;
+
+    padding: 0 20px;
+
+    transition: all 0.4s ease;
+}
+
+#selected-radio {
+    background-color: transparent;
+    border: 1px solid #e0e0e0;
+}
+
+.radio-container:hover {
+    background-color: transparent;
+    border: 1px solid #e0e0e0;
+}
+
+.radio-container:hover > p {
+    /* color: #000; */
+}
+
+.radio-container:hover > .fa-user {
+    color: #000;
+}
+
+.radio-container:hover > .fa-timeline {
+    color: #000;
+}
+
+.radio-container:hover > .fa-book {
+    color: #000;
+}
+
+.radio-container:hover > .fa-pen-nib {
+    color: #000;
+}
+
+.radio-container > p {
+    font-size: 0.7rem;
+    font-family: "Mulish", sans-serif;
+    font-weight: bold;
+
+    color: #656f79;
+
+    transition: all 0.4s ease;
+}
+
+.radio-container > input {
+    cursor: pointer;
 }
